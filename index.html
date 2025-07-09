@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>POWRÓT</title>
+
+  <!-- Straszy tytuł w karcie -->
+  <title>Uwaga! Wrócił...</title>
+
+  <!-- Glitch/Horror favicon (domyślny z emoji) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
+
   <style>
     body {
       margin: 0;
@@ -42,7 +48,7 @@
   <div class="centered-text">POWRÓT W 100% WKRÓTCE</div>
   <canvas id="glitchCanvas"></canvas>
 
-  <!-- Muzyka z YouTube -->
+  <!-- Straszna muzyka -->
   <iframe
     width="0"
     height="0"
@@ -52,14 +58,12 @@
   ></iframe>
 
   <script>
-    // glitch particles falling
     const canvas = document.getElementById('glitchCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     const particles = [];
-
     function createParticle() {
       return {
         x: Math.random() * canvas.width,
