@@ -12,6 +12,7 @@
       color: white;
       font-family: 'Courier New', monospace;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .centered-emojis {
@@ -25,6 +26,20 @@
       text-shadow: 0 0 10px red;
     }
 
+    .leader-list {
+      display: none;
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: red;
+      font-size: 28px;
+      text-align: center;
+      text-shadow: 0 0 10px red;
+      z-index: 3;
+      animation: fadeIn 1s ease-in-out;
+    }
+
     canvas {
       position: fixed;
       top: 0;
@@ -36,10 +51,19 @@
     iframe {
       display: none;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
   </style>
 </head>
 <body>
   <div class="centered-emojis">🪓👁️</div>
+  <div class="leader-list" id="leaders">
+    <div><strong>Lider: ALT</strong></div>
+    <div>White Death Project</div>
+  </div>
   <canvas id="glitchCanvas"></canvas>
   <iframe width="0" height="0" src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0" frameborder="0" allow="autoplay"></iframe>
   <script>
@@ -78,6 +102,11 @@
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+    });
+
+    document.body.addEventListener('click', () => {
+      const leaders = document.getElementById('leaders');
+      leaders.style.display = 'block';
     });
   </script>
 </body>
