@@ -1,100 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>RED DEATH PROJECT</title>
-  <meta property="og:title" content="RED DEATH PROJECT" />
-  <meta property="og:description" content="Click if you dare. Dumps of FiveM servers. Nothing will be the same." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>👁️ Он смотрит...</title>
+  <meta property="og:title" content="ОН СМОТРИТ 👁️🪓" />
+  <meta property="og:description" content="ОН СМОТРИТ 👁️🪓" />
   <meta property="og:image" content="https://i.imgur.com/jcLtWzE.png" />
   <meta property="og:url" content="https://susannull.github.io/" />
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🪓</text></svg>">
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background-color: black;
-      color: red;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
       overflow: hidden;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      text-align: center;
-      text-shadow: 0 0 15px red;
-    }
-
-    button {
-      background: none;
-      border: 2px solid red;
-      color: red;
-      padding: 15px 30px;
-      font-size: 1.2em;
       cursor: pointer;
-      transition: 0.3s;
-      text-transform: uppercase;
     }
 
-    button:hover {
-      background: red;
-      color: black;
-    }
-
-    .multi-text {
-      font-size: 1.1em;
-      margin-bottom: 20px;
+    .center, .click-text, .title, .desc {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
+      z-index: 2;
+      text-shadow: 0 0 10px red;
     }
 
-    .content {
-      text-align: center;
+    .center {
+      top: 35%;
+      font-size: 90px;
     }
 
-    #mainContent {
-      display: block;
+    .click-text {
+      top: 60%;
+      font-size: 22px;
+      color: #ff0000;
+      animation: blink 1.5s infinite;
     }
 
-    #secondScreen {
+    .title {
       display: none;
-      font-size: 1.5em;
-      text-shadow: 0 0 10px crimson;
+      top: 40%;
+      font-size: 36px;
+      font-weight: bold;
+      color: crimson;
+      text-shadow: 0 0 20px darkred;
     }
 
-    audio {
+    .desc {
       display: none;
+      top: 55%;
+      font-size: 18px;
+      color: white;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    iframe {
+      display: none;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
     }
   </style>
 </head>
 <body>
-  <div class="content" id="mainContent">
-    <h1>RED DEATH PROJECT</h1>
-    <div class="multi-text">
-      <div>Click to continue</div>
-      <div>Нажмите, чтобы продолжить</div>
-      <div>Kliknij, aby przejść dalej</div>
-    </div>
-    <button onclick="goToDump()">▶</button>
+  <div class="center" id="emojis">🪓👁️</div>
+  <div class="click-text" id="clickText">
+    Click to continue<br>
+    Нажми чтобы продолжить<br>
+    Kliknij, aby kontynuować
   </div>
+  <div class="title" id="title">RED DEATH PROJECT</div>
+  <div class="desc" id="desc">Tutaj będą publikowane dumpy serwerów FiveM</div>
 
-  <div id="secondScreen">
-    RED DEATH PROJECT — HERE WILL BE FIVEM SERVER DUMPS
-  </div>
-
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/11/08/audio_fcf8404b07.mp3" type="audio/mpeg">
-  </audio>
+  <canvas id="glitchCanvas"></canvas>
+  <iframe
+    id="music"
+    width="0"
+    height="0"
+    src="https://www.youtube.com/embed/c69eHlQrKaY?autoplay=1&loop=1&playlist=c69eHlQrKaY"
+    frameborder="0"
+    allow="autoplay"
+  ></iframe>
 
   <script>
-    function goToDump() {
-      document.getElementById('mainContent').style.display = 'none';
-      document.getElementById('secondScreen').style.display = 'block';
+    const canvas = document.getElementById('glitchCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 3 + 1,
+        color: `rgb(${Math.random()*255}, 0, ${Math.random()*255})`
+      };
     }
+
+    for (let i = 0; i < 150; i++) {
+      particles.push(createParticle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+          Object.assign(p, createParticle());
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    document.body.addEventListener('click', () => {
+      document.getElementById('emojis').style.display = 'none';
+      document.getElementById('clickText').style.display = 'none';
+      document.getElementById('title').style.display = 'block';
+      document.getElementById('desc').style.display = 'block';
+      document.getElementById('music').style.display = 'block';
+    });
   </script>
 </body>
 </html>
