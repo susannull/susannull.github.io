@@ -17,13 +17,26 @@
 
     .centered-emojis {
       position: absolute;
-      top: 50%;
+      top: 35%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 100px;
+      font-size: 90px;
       text-align: center;
       z-index: 2;
       text-shadow: 0 0 10px red;
+    }
+
+    .click-text {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 22px;
+      color: #ff0000;
+      z-index: 2;
+      text-shadow: 0 0 10px red;
+      animation: blink 1.5s infinite;
     }
 
     .leader-list {
@@ -56,10 +69,20 @@
       from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
   </style>
 </head>
 <body>
   <div class="centered-emojis">🪓👁️</div>
+  <div class="click-text" id="clickText">
+    Click to continue<br>
+    Нажми чтобы продолжить<br>
+    Kliknij, aby kontynuować
+  </div>
   <div class="leader-list" id="leaders">
     <div><strong>Lider: ALT</strong></div>
     <div>White Death Project</div>
@@ -105,8 +128,8 @@
     });
 
     document.body.addEventListener('click', () => {
-      const leaders = document.getElementById('leaders');
-      leaders.style.display = 'block';
+      document.getElementById('clickText').style.display = 'none';
+      document.getElementById('leaders').style.display = 'block';
     });
   </script>
 </body>
