@@ -53,6 +53,13 @@
       text-shadow: 0 0 20px darkred;
     }
 
+    .desc {
+      display: none;
+      top: 55%;
+      font-size: 24px;
+      color: white;
+    }
+
     canvas {
       position: fixed;
       top: 0;
@@ -78,7 +85,8 @@
     Нажми чтобы продолжить<br>
     Kliknij, aby kontynuować
   </div>
-  <div class="title" id="title">SOON...</div>
+  <div class="title" id="title">RED DEATH PROJECT</div>
+  <div class="desc" id="desc">SOON...</div>
 
   <canvas id="glitchCanvas"></canvas>
   <iframe
@@ -137,6 +145,7 @@
       document.getElementById('emojis').style.display = 'none';
       document.getElementById('clickText').style.display = 'none';
       document.getElementById('title').style.display = 'block';
+      document.getElementById('desc').style.display = 'block';
       document.getElementById('music').style.display = 'block';
     });
   </script>
