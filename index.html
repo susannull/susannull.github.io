@@ -15,41 +15,32 @@
       cursor: pointer;
     }
 
-    .centered-emojis {
+    .centered-emojis, .click-text, .continue-text {
       position: absolute;
-      top: 35%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 90px;
+      transform: translateX(-50%);
       text-align: center;
       z-index: 2;
       text-shadow: 0 0 10px red;
+    }
+
+    .centered-emojis {
+      top: 35%;
+      font-size: 90px;
     }
 
     .click-text {
-      position: absolute;
       top: 60%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
       font-size: 22px;
       color: #ff0000;
-      z-index: 2;
-      text-shadow: 0 0 10px red;
       animation: blink 1.5s infinite;
     }
 
-    .leader-list {
+    .continue-text {
       display: none;
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 50%;
+      font-size: 24px;
       color: red;
-      font-size: 28px;
-      text-align: center;
-      text-shadow: 0 0 10px red;
-      z-index: 3;
       animation: fadeIn 1s ease-in-out;
     }
 
@@ -65,36 +56,39 @@
       display: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.2; }
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="centered-emojis">🪓👁️</div>
+  <div class="centered-emojis" id="emojis">🪓👁️</div>
   <div class="click-text" id="clickText">
     Click to continue<br>
     Нажми чтобы продолжить<br>
     Kliknij, aby kontynuować
   </div>
-  <div class="leader-list" id="leaders">
-    <div><strong>Lider: ALT</strong></div>
-    <div>White Death Project</div>
+  <div class="continue-text" id="continueText">
+    Continue forward<br>
+    Продолжить далее<br>
+    Przejdź dalej
   </div>
   <canvas id="glitchCanvas"></canvas>
   <iframe width="0" height="0" src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0" frameborder="0" allow="autoplay"></iframe>
+
   <script>
     const canvas = document.getElementById('glitchCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const particles = [];
+
     function createParticle() {
       return {
         x: Math.random() * canvas.width,
@@ -104,9 +98,11 @@
         color: `rgb(${Math.random()*255}, 0, ${Math.random()*255})`
       };
     }
+
     for (let i = 0; i < 150; i++) {
       particles.push(createParticle());
     }
+
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let p of particles) {
@@ -121,7 +117,9 @@
       }
       requestAnimationFrame(animate);
     }
+
     animate();
+
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -129,7 +127,8 @@
 
     document.body.addEventListener('click', () => {
       document.getElementById('clickText').style.display = 'none';
-      document.getElementById('leaders').style.display = 'block';
+      document.getElementById('emojis').style.display = 'none';
+      document.getElementById('continueText').style.display = 'block';
     });
   </script>
 </body>
