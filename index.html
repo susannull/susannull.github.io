@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>👁️ On patrzy...</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🪓</text></svg>">
   <style>
@@ -15,7 +15,7 @@
       cursor: pointer;
     }
 
-    .centered-emojis, .click-text, .continue-text {
+    .centered-emojis, .click-text, .continue-text, .project-text {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -36,12 +36,19 @@
       animation: blink 1.5s infinite;
     }
 
-    .continue-text {
+    .continue-text, .project-text {
       display: none;
       top: 50%;
       font-size: 24px;
       color: red;
       animation: fadeIn 1s ease-in-out;
+    }
+
+    .project-text {
+      font-size: 32px;
+      color: crimson;
+      font-weight: bold;
+      text-shadow: 0 0 20px darkred;
     }
 
     canvas {
@@ -79,6 +86,10 @@
     Продолжить далее<br>
     Przejdź dalej
   </div>
+  <div class="project-text" id="projectText">
+    RED DEATH PROJECT
+  </div>
+
   <canvas id="glitchCanvas"></canvas>
   <iframe width="0" height="0" src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0" frameborder="0" allow="autoplay"></iframe>
 
@@ -87,8 +98,8 @@
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const particles = [];
 
+    const particles = [];
     function createParticle() {
       return {
         x: Math.random() * canvas.width,
@@ -99,9 +110,7 @@
       };
     }
 
-    for (let i = 0; i < 150; i++) {
-      particles.push(createParticle());
-    }
+    for (let i = 0; i < 150; i++) particles.push(createParticle());
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -111,24 +120,28 @@
         ctx.fillStyle = p.color;
         ctx.fill();
         p.y += p.speed;
-        if (p.y > canvas.height) {
-          Object.assign(p, createParticle());
-        }
+        if (p.y > canvas.height) Object.assign(p, createParticle());
       }
       requestAnimationFrame(animate);
     }
 
     animate();
-
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
 
+    let clickCount = 0;
     document.body.addEventListener('click', () => {
-      document.getElementById('clickText').style.display = 'none';
-      document.getElementById('emojis').style.display = 'none';
-      document.getElementById('continueText').style.display = 'block';
+      clickCount++;
+      if (clickCount === 1) {
+        document.getElementById('clickText').style.display = 'none';
+        document.getElementById('emojis').style.display = 'none';
+        document.getElementById('continueText').style.display = 'block';
+      } else if (clickCount === 2) {
+        document.getElementById('continueText').style.display = 'none';
+        document.getElementById('projectText').style.display = 'block';
+      }
     });
   </script>
 </body>
