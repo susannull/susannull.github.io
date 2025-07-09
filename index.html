@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Straszy tytuł w karcie -->
-  <title>Uwaga! Wrócił...</title>
-
-  <!-- Glitch/Horror favicon (domyślny z emoji) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👁️ On patrzy...</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🪓</text></svg>">
   <style>
     body {
       margin: 0;
       background: black;
       color: white;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'Courier New', monospace;
       overflow: hidden;
     }
 
-    .centered-text {
+    .centered-emojis {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 32px;
+      font-size: 100px;
       text-align: center;
       z-index: 2;
-      color: #ff0000;
       text-shadow: 0 0 10px red;
     }
 
@@ -45,24 +39,14 @@
   </style>
 </head>
 <body>
-  <div class="centered-text">POWRÓT W 100% WKRÓTCE</div>
+  <div class="centered-emojis">🪓👁️</div>
   <canvas id="glitchCanvas"></canvas>
-
-  <!-- Straszna muzyka -->
-  <iframe
-    width="0"
-    height="0"
-    src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0"
-    frameborder="0"
-    allow="autoplay"
-  ></iframe>
-
+  <iframe width="0" height="0" src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0" frameborder="0" allow="autoplay"></iframe>
   <script>
     const canvas = document.getElementById('glitchCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     const particles = [];
     function createParticle() {
       return {
@@ -73,11 +57,9 @@
         color: `rgb(${Math.random()*255}, 0, ${Math.random()*255})`
       };
     }
-
     for (let i = 0; i < 150; i++) {
       particles.push(createParticle());
     }
-
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let p of particles) {
@@ -92,9 +74,7 @@
       }
       requestAnimationFrame(animate);
     }
-
     animate();
-
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
