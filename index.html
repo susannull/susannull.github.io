@@ -15,7 +15,7 @@
       cursor: pointer;
     }
 
-    .centered-emojis, .click-text, .continue-text, .project-text {
+    .center, .click-text, .title, .desc {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -24,7 +24,7 @@
       text-shadow: 0 0 10px red;
     }
 
-    .centered-emojis {
+    .center {
       top: 35%;
       font-size: 90px;
     }
@@ -36,19 +36,20 @@
       animation: blink 1.5s infinite;
     }
 
-    .continue-text, .project-text {
+    .title {
       display: none;
-      top: 50%;
-      font-size: 24px;
-      color: red;
-      animation: fadeIn 1s ease-in-out;
+      top: 40%;
+      font-size: 36px;
+      font-weight: bold;
+      color: crimson;
+      text-shadow: 0 0 20px darkred;
     }
 
-    .project-text {
-      font-size: 32px;
-      color: crimson;
-      font-weight: bold;
-      text-shadow: 0 0 20px darkred;
+    .desc {
+      display: none;
+      top: 55%;
+      font-size: 18px;
+      color: white;
     }
 
     canvas {
@@ -67,28 +68,17 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.2; }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
   </style>
 </head>
 <body>
-  <div class="centered-emojis" id="emojis">🪓👁️</div>
+  <div class="center" id="emojis">🪓👁️</div>
   <div class="click-text" id="clickText">
     Click to continue<br>
     Нажми чтобы продолжить<br>
     Kliknij, aby kontynuować
   </div>
-  <div class="continue-text" id="continueText">
-    Continue forward<br>
-    Продолжить далее<br>
-    Przejdź dalej
-  </div>
-  <div class="project-text" id="projectText">
-    RED DEATH PROJECT
-  </div>
+  <div class="title" id="title">RED DEATH PROJECT</div>
+  <div class="desc" id="desc">Tutaj będą publikowane dumpy serwerów FiveM</div>
 
   <canvas id="glitchCanvas"></canvas>
   <iframe width="0" height="0" src="https://www.youtube.com/embed/75P0QGi3RO0?autoplay=1&loop=1&playlist=75P0QGi3RO0" frameborder="0" allow="autoplay"></iframe>
@@ -98,8 +88,8 @@
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     const particles = [];
+
     function createParticle() {
       return {
         x: Math.random() * canvas.width,
@@ -110,7 +100,9 @@
       };
     }
 
-    for (let i = 0; i < 150; i++) particles.push(createParticle());
+    for (let i = 0; i < 150; i++) {
+      particles.push(createParticle());
+    }
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -120,28 +112,25 @@
         ctx.fillStyle = p.color;
         ctx.fill();
         p.y += p.speed;
-        if (p.y > canvas.height) Object.assign(p, createParticle());
+        if (p.y > canvas.height) {
+          Object.assign(p, createParticle());
+        }
       }
       requestAnimationFrame(animate);
     }
 
     animate();
+
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
 
-    let clickCount = 0;
     document.body.addEventListener('click', () => {
-      clickCount++;
-      if (clickCount === 1) {
-        document.getElementById('clickText').style.display = 'none';
-        document.getElementById('emojis').style.display = 'none';
-        document.getElementById('continueText').style.display = 'block';
-      } else if (clickCount === 2) {
-        document.getElementById('continueText').style.display = 'none';
-        document.getElementById('projectText').style.display = 'block';
-      }
+      document.getElementById('emojis').style.display = 'none';
+      document.getElementById('clickText').style.display = 'none';
+      document.getElementById('title').style.display = 'block';
+      document.getElementById('desc').style.display = 'block';
     });
   </script>
 </body>
